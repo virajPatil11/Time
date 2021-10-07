@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Count Down Timer</title>
+    https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="card">
+      <div class="card-body">
+        <h1 class="h"></h1>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <h1 class="h2"></h1>
+      </div>
+    </div>
+    <script>
+      let h1 = document.querySelector(".h");
+      let h2 = document.querySelector(".h2");
+      let set = setInterval(count, 100);
+      function count() {
+        let now = new Date().getTime();
+        let deadline = new Date("jan 29, 2030 23:56:35").getTime();
+        let diff = deadline - now;
+        let hr = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        let min = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        let sec = Math.floor((diff % (1000 * 60)) / 1000);
+        h1.innerHTML = `
+               ${hr}hr ${min}min ${sec}sec
+            `;
+
+        if (hr <= 0) {
+          h1.innerHTML = "BOMB ACTIVATED";
+          clearTimeout(set);
+        }
+      }
+
+      setInterval(tick, 1000);
+      function tick() {
+        var now = new Date();
+        var hour = now.getHours();
+        var min = now.getMinutes();
+        var sec = now.getSeconds();
+        if (hour > 24) {
+            h2.innerHTML = `
+            ${hour}:${min}:${sec} PM
+        `
+        } else if(hour < 24){
+            h2.innerHTML = `
+            ${hour}:${min}:${sec} AM
+        `
+        }
+      }
+    </script>
+  </body>
+</html>
